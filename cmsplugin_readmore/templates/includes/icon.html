@@ -1,0 +1,5 @@
+{% load aldryn_bootstrap3_tags cms_tags %}
+
+{% spaceless %}
+<span class="icon {{ icon_type }} {{ icon_class|iconset_from_class }} {{ icon_class }}{% if instance.classes %} {{ instance.classes }}{% endif %}" aria-hidden="true"{% if 'open' in icon_type %} style="display:none;"{% endif %}></span>
+{% endspaceless %}

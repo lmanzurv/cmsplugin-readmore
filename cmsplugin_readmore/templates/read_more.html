@@ -1,0 +1,33 @@
+{% load cms_tags sekizai_tags %}
+
+<a class="readmore {{ instance.css_classes }}">
+    {% if instance.prepend_icon_closed %}{% include 'includes/icon.html' with icon_class=instance.prepend_icon_closed icon_type='prepend-icon closed' %}{% endif %}
+    {% if instance.prepend_icon_open %}{% include 'includes/icon.html' with icon_class=instance.prepend_icon_open icon_type='prepend-icon open' %}{% endif %}
+    <span class="text closed">{{ instance.title_closed }}</span><span class="text open" style="display: none;">{{ instance.title_open }}</span>
+    {% if instance.append_icon_closed %}{% include 'includes/icon.html' with icon_class=instance.append_icon_closed icon_type='append-icon closed' %}{% endif %}
+    {% if instance.append_icon_open %}{% include 'includes/icon.html' with icon_class=instance.append_icon_open icon_type='append-icon open' %}{% endif %}
+</a>
+
+{% addtoblock "js" %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.readmore').each(function() {
+                var $target = $(this);
+                if($target.parent('p').length) {
+                    $target = $target.parent();
+                }
+                $target.nextAll().attr('style', 'display:none');
+            });
+
+            $('.readmore').click(function(){
+                var $rm = $(this);
+                var $target = $rm;
+                if($target.closest('p').length) {
+                    $target = $rm.parent();
+                }
+                $target.nextAll().slideToggle('slow');
+                $rm.find('.text, .icon').toggle();
+            });
+        });
+    </script>
+{% endaddtoblock %}
